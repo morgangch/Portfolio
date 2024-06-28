@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets - Morgan GUICHARD</title>
+    <!-- Inclure Tailwind CSS depuis un CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Inclure Vue depuis un CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        body {
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+
+        .header {
+            background-color: #161B22;
+        }
+
+        .highlight {
+            color: #58A6FF;
+        }
+
+        .category, .language, .project {
+            cursor: pointer;
+        }
+
+        .project-details {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="header p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-3xl font-bold">Morgan GUICHARD</h1>
+                <nav class="space-x-4">
+                    <a href="index.html" class="hover:text-gray-400">Accueil</a>
+                    <a href="cv.html" class="hover:text-gray-400">CV</a>
+                    <a href="projets.html" class="hover:text-gray-400">Projets</a>
+                    <a href="contacts.html" class="hover:text-gray-400">Contacts</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto p-4">
+            <section class="text-center mb-8">
+                <h2 class="text-2xl font-bold mb-4">Projets</h2>
+                <p class="mb-4">Explorez mes projets par catégorie, langage, et description.</p>
+                <div v-for="category in projects" :key="category.name" class="mb-6">
+                    <div @click="toggle(category)" class="category text-xl font-bold bg-blue-900 p-2 rounded-md mb-2">{{ category.name }}</div>
+                    <div v-if="category.expanded" class="pl-4">
+                        <div v-for="language in category.languages" :key="language.name" class="mb-4">
+                            <div @click="toggle(language)" class="language text-lg font-semibold bg-blue-800 p-2 rounded-md mb-2">{{ language.name }}</div>
+                            <div v-if="language.expanded" class="pl-4">
+                                <div v-for="project in language.projects" :key="project.name" class="mb-2">
+                                    <div @click="toggle(project)" class="project text-base bg-blue-700 p-2 rounded-md mb-1 flex justify-between items-center">
+                                        <span>{{ project.name }}</span>
+                                        <span :class="project.type" class="rounded-full h-4 w-4 inline-block"></span>
+                                    </div>
+                                    <div v-if="project.expanded" class="project-details bg-blue-600 p-2 rounded-md">
+                                        <p>{{ project.description }}</p>
+                                        <a :href="project.link" target="_blank" class="text-blue-400 hover:underline">Voir le repository GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                projects: [
+                    {
+                        name: 'Développement',
+                        expanded: false,
+                        languages: [
+                            {
+                                name: 'NodeJS (Web)',
+                                expanded: false,
+                                projects: [
+                                    { name: 'Projet Web NodeJS', description: 'Description du projet Web en NodeJS.', link: 'https://github.com/morganguichard/projet-web-nodejs', type: 'bg-blue-500', expanded: false },
+                                    { name: 'API NodeJS', description: 'Description de l\'API NodeJS.', link: 'https://github.com/morganguichard/api-nodejs', type: 'bg-yellow-500', expanded: false }
+                                ]
+                            },
+                            {
+                                name: 'Python',
+                                expanded: false,
+                                projects: [
+                                    { name: 'Analyse de données', description: 'Description du projet d\'analyse de données en Python.', link: 'https://github.com/morganguichard/analyse-donnees-python', type: 'bg-blue-500', expanded: false }
+                                ]
+                            },
+                            {
+                                name: 'C',
+                                expanded: false,
+                                projects: [
+                                    { name: 'Logiciel C', description: 'Description du logiciel développé en C.', link: 'https://github.com/morganguichard/logiciel-c', type: 'bg-yellow-500', expanded: false }
+                                ]
+                            },
+                            {
+                                name: 'Bash',
+                                expanded: false,
+                                projects: [
+                                    { name: 'Scripts Bash', description: 'Description des scripts Bash.', link: 'https://github.com/morganguichard/scripts-bash', type: 'bg-red-500', expanded: false }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'DevOps',
+                        expanded: false,
+                        languages: [
+                            {
+                                name: 'GitHub CLI',
+                                expanded: false,
+                                projects: [
+                                    { name: 'Automatisation GitHub', description: 'Description du projet d\'automatisation avec GitHub CLI.', link: 'https://github.com/morganguichard/automatisation-github-cli', type: 'bg-blue-500', expanded: false }
+                                ]
+                            },
+                            {
+                                name: 'Administration Système',
+                                expanded: false,
+                                projects: [
+                                    { name: 'Scripts d\'administration', description: 'Description des scripts d\'administration système.', link: 'https://github.com/morganguichard/scripts-administration', type: 'bg-yellow-500', expanded: false }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Cybersécurité',
+                        expanded: false,
+                        languages: [
+                            {
+                                name: 'Writeups',
+                                expanded: false,
+                                projects: [
+                                    { name: 'GCC CTF 2024', description: "Mon write-up pour la GCC CTF 2024. J'ai pu finir en 5e place.", link: 'https://github.com/morgangch/GCC-CTF-2024', type: 'bg-red-500', expanded: false }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Jeux',
+                        expanded: false,
+                        languages: [
+                            {
+                                name: 'Unity',
+                                expanded: false,
+                                projects: [
+                                    { name: 'Jeu Unity', description: 'Description du jeu développé avec Unity.', link: 'https://github.com/morganguichard/jeu-unity', type: 'bg-blue-500', expanded: false }
+                                ]
+                            },
+                            {
+                                name: 'Godot',
+                                expanded: false,
+                                projects: [
+                                ]
+                            },
+                            {
+                                name: 'Unreal Engine',
+                                expanded: false,
+                                projects: [
+                                    { name: 'Jeu Unreal Engine', description: 'Description du jeu développé avec Unreal Engine.', link: 'https://github.com/morganguichard/jeu-unreal-engine', type: 'bg-blue-500', expanded: false }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            methods: {
+                toggle(item) {
+                    item.expanded = !item.expanded;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

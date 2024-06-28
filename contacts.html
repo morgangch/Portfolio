@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts - Morgan GUICHARD</title>
+    <!-- Inclure Tailwind CSS depuis un CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Inclure Vue depuis un CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        body {
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+
+        .header {
+            background-color: #161B22;
+        }
+
+        .highlight {
+            color: #58A6FF;
+        }
+
+        .contact-item {
+            margin-bottom: 1rem;
+        }
+
+        .contact-item a {
+            color: #58A6FF;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="header p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-3xl font-bold">Morgan GUICHARD</h1>
+                <nav class="space-x-4">
+                    <a href="index.html" class="hover:text-gray-400">Accueil</a>
+                    <a href="cv.html" class="hover:text-gray-400">CV</a>
+                    <a href="projets.html" class="hover:text-gray-400">Projets</a>
+                    <a href="contacts.html" class="hover:text-gray-400">Contacts</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto p-4">
+            <section class="text-center mb-8">
+                <h2 class="text-2xl font-bold mb-4">Contacts</h2>
+                <p class="mb-4">Vous pouvez me joindre via les moyens suivants :</p>
+                <div class="contact-item">
+                    <strong>Email :</strong> <a href="mailto:morgan.guichard@epitech.eu">morgan.guichard@epitech.eu</a>
+                </div>
+                <div class="contact-item">
+                    <strong>Téléphone :</strong> <a href="tel:+33670475175">+33 6 70 47 51 75</a>
+                </div>
+                <div class="contact-item">
+                    <strong>LinkedIn :</strong> <a href="https://www.linkedin.com/in/morgan-guichard" target="_blank">linkedin.com/in/morgan-guichard</a>
+                </div>
+                <div class="contact-item">
+                    <strong>GitHub :</strong> <a href="https://github.com/morgangch" target="_blank">github.com/morgangch</a>
+                </div>
+                <div class="contact-item">
+                    <strong>Teams :</strong> Morgan Guichard
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app'
+        });
+    </script>
+</body>
+
+</html>

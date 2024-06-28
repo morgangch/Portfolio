@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV de Morgan GUICHARD</title>
+    <!-- Inclure Tailwind CSS depuis un CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Inclure Vue depuis un CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        body {
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+
+        .header {
+            background-color: #161B22;
+        }
+
+        .highlight {
+            color: #58A6FF;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="header p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-3xl font-bold">Morgan GUICHARD</h1>
+                <nav class="space-x-4">
+                    <a href="index.html" class="hover:text-gray-400">Accueil</a>
+                    <a href="cv.html" class="hover:text-gray-400">CV</a>
+                    <a href="projets.html" class="hover:text-gray-400">Projets</a>
+                    <a href="contacts.html" class="hover:text-gray-400">Contacts</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto p-4">
+            <section class="text-center mb-8">
+                <h2 class="text-2xl font-bold mb-4">Mon CV</h2>
+                <p class="mb-4">Téléchargez mon CV en cliquant sur le bouton ci-dessous :</p>
+                <a href="CV_MorganG_Public_2024.pdf" download class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Télécharger le CV</a>
+            </section>
+            <section class="text-center">
+                <h2 class="text-2xl font-bold mb-4">Recherche de Stage</h2>
+                <p class="max-w-2xl mx-auto">
+                    Je suis actuellement à la recherche d'un stage de <span class="highlight">4 à 6 mois</span> en Informatique à partir de <span class="highlight">Juillet</span>.
+                    Si vous êtes intéressé par mon profil, n'hésitez pas à me contacter via la page de contacts.
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app'
+        });
+    </script>
+</body>
+
+</html>
