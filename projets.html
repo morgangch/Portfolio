@@ -54,19 +54,19 @@
                 <h2 class="text-2xl font-bold mb-4">Projets</h2>
                 <p class="mb-4">Explorez mes projets par catégorie, langage, et description.</p>
                 <div v-for="category in projects" :key="category.name" class="mb-6">
-                    <div @click="toggle(category)" class="category text-xl font-bold bg-blue-900 p-2 rounded-md mb-2">{{ category.name }}</div>
+                    <div @click="toggle(category)" class="category text-xl font-bold bg-blue-950 p-2 rounded-md mb-2">{{ category.name }}</div>
                     <div v-if="category.expanded" class="pl-4">
                         <div v-for="language in category.languages" :key="language.name" class="mb-4">
-                            <div @click="toggle(language)" class="language text-lg font-semibold bg-blue-700 p-2 rounded-md mb-2">{{ language.name }}</div>
+                            <div @click="toggle(language)" class="language text-lg font-semibold bg-blue-600 p-2 rounded-md mb-2">{{ language.name }}</div>
                             <div v-if="language.expanded" class="pl-4">
                                 <div v-for="project in language.projects" :key="project.name" class="mb-2">
-                                    <div @click="toggle(project)" class="project text-base bg-blue-500 p-2 rounded-md mb-1 flex justify-between items-center">
+                                    <div @click="toggle(project)" class="project text-base bg-blue-400 p-2 rounded-md mb-1 flex justify-between items-center">
                                         <span>{{ project.name }}</span>
                                         <span :class="project.type" class="rounded-full h-4 w-4 inline-block"></span>
                                     </div>
                                     <div v-if="project.expanded" class="project-details bg-sky-600 p-2 rounded-md">
                                         <p>{{ project.description }}</p>
-                                        <a :href="project.link" target="_blank" class="text-cyan-600 hover:underline">Voir le repository GitHub</a>
+                                        <a :href="project.link" target="_blank" class="text-sky-400 hover:underline">Voir le repository GitHub</a>
                                     </div>
                                 </div>
                             </div>
