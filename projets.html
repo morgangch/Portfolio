@@ -57,16 +57,16 @@
                     <div @click="toggle(category)" class="category text-xl font-bold bg-blue-900 p-2 rounded-md mb-2">{{ category.name }}</div>
                     <div v-if="category.expanded" class="pl-4">
                         <div v-for="language in category.languages" :key="language.name" class="mb-4">
-                            <div @click="toggle(language)" class="language text-lg font-semibold bg-blue-800 p-2 rounded-md mb-2">{{ language.name }}</div>
+                            <div @click="toggle(language)" class="language text-lg font-semibold bg-blue-700 p-2 rounded-md mb-2">{{ language.name }}</div>
                             <div v-if="language.expanded" class="pl-4">
                                 <div v-for="project in language.projects" :key="project.name" class="mb-2">
-                                    <div @click="toggle(project)" class="project text-base bg-blue-700 p-2 rounded-md mb-1 flex justify-between items-center">
+                                    <div @click="toggle(project)" class="project text-base bg-blue-500 p-2 rounded-md mb-1 flex justify-between items-center">
                                         <span>{{ project.name }}</span>
                                         <span :class="project.type" class="rounded-full h-4 w-4 inline-block"></span>
                                     </div>
-                                    <div v-if="project.expanded" class="project-details bg-blue-600 p-2 rounded-md">
+                                    <div v-if="project.expanded" class="project-details bg-sky-600 p-2 rounded-md">
                                         <p>{{ project.description }}</p>
-                                        <a :href="project.link" target="_blank" class="text-blue-400 hover:underline">Voir le repository GitHub</a>
+                                        <a :href="project.link" target="_blank" class="text-cyan-600 hover:underline">Voir le repository GitHub</a>
                                     </div>
                                 </div>
                             </div>
