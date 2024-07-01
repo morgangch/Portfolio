@@ -32,6 +32,14 @@
         .project-details {
             display: block;
         }
+
+        .pastille {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
     </style>
 </head>
 
@@ -60,7 +68,10 @@
         <main class="flex-grow container mx-auto p-4">
             <section class="text-center mb-8">
                 <h2 class="text-2xl font-bold mb-4">Projets</h2>
-                <p class="mb-4">Explorez mes projets par catégorie, langage, et description.</p>
+                <p class="mb-4">Explorez mes projets par catégorie, langage, et description. Note : Les noms de projets seront accompagnés de petites pastilles : <br>
+                    <em><span class="pastille bg-blue-500"></span>Si la pastille est bleue : Le projet est un projet issu d'un projet scolaire (Lycée / Epitech)</em> <br>
+                    <em><span class="pastille bg-yellow-500"></span>Si la pastille est jaune : Le projet est un projet personnel</em> <br>
+                    <em><span class="pastille bg-red-500"></span>Si la pastille est rouge : Le projet est un projet tiré d'un évènement (JAM, CTF...)</em> <br>                </p>
                 <div v-for="category in projects" :key="category.name" class="mb-6">
                     <div @click="toggle(category)" class="category text-xl font-bold bg-blue-900 p-2 rounded-md mb-2">{{ category.name }}</div>
                     <div v-if="category.expanded" class="pl-4">
@@ -99,29 +110,33 @@
                                 name: 'NodeJS (Web)',
                                 expanded: false,
                                 projects: [
-                                    { name: 'Projet Web NodeJS', description: 'Description du projet Web en NodeJS.', link: 'https://github.com/morganguichard/projet-web-nodejs', type: 'bg-blue-500', expanded: false },
-                                    { name: 'API NodeJS', description: 'Description de l\'API NodeJS.', link: 'https://github.com/morganguichard/api-nodejs', type: 'bg-yellow-500', expanded: false }
+                                    { name: 'My Login', description: 'Test de site avec back-end en NodeJS pour expérimenter la gestion et le stockage de logins pour gestion de comptes.', link: 'https://github.com/morgangch/My_Login', type: 'bg-yellow-500', expanded: false },
+                                    { name: 'Epytodo', description: "Projet en NodeJS d'API pour .", link: 'https://github.com/morgangch/epytodo', type: 'bg-blue-800', expanded: false }
                                 ]
                             },
                             {
                                 name: 'Python',
                                 expanded: false,
                                 projects: [
-                                    { name: 'Analyse de données', description: 'Description du projet d\'analyse de données en Python.', link: 'https://github.com/morganguichard/analyse-donnees-python', type: 'bg-blue-500', expanded: false }
+                                    { name: 'GitMir-Cloner', description: "Script pour me permettre de dupliquer mes repositories de l'organisation Epitech pour ensuite les remettre sur mon profil en public, avec un mirroring actif, en gérant la création des variables et secrets tout seul", link: 'https://github.com/morgangch/GitMir-Maker', type: 'bg-yellow-500', expanded: false },
+                                    { name: 'Repertoire Telephonique en Flask', description: "Un vieux projet de lycée dont le but était de faire un répertoire téléphonique en utilisant Flask. J'ai étendu le projet en ajoutant une gestion d'utilisateurs (légèrmeent obsolète aujourd'hui) qui m'avait servi de bonus. Chaque répertoire étant unique à chaque utilisateur", link: 'https://github.com/morgangch/RepTel-Flask', type: 'bg-blue-800', expanded: false }
                                 ]
                             },
                             {
                                 name: 'C',
                                 expanded: false,
                                 projects: [
-                                    { name: 'Logiciel C', description: 'Description du logiciel développé en C.', link: 'https://github.com/morganguichard/logiciel-c', type: 'bg-yellow-500', expanded: false }
+                                    { name: 'MyPrintf', description: 'Premier vrai projet Epitech : recoder la fonction printf.', link: 'https://github.com/morgangch/MyPrintf', type: 'bg-blue-800', expanded: false },
+                                    { name: 'MyRPG', description: "Dernier projet de 1ère année à Epitech : Un RPG utilisant la CSFML fait sans moteur de jeu", link: 'https://github.com/morgangch/our_rpg', type: 'bg-blue-800', expanded: false },
+                                    { name: 'Minishell2', description: "Programme qui consiste à recoder un shell ; sa gestion de l'environnement, des commandes, des commandes 'builtins' (cd, setenv, unsetenv). Inspiré de TCSH.", link: 'https://github.com/morgangch/minishell2', type: 'bg-blue-800', expanded: false }
                                 ]
                             },
                             {
                                 name: 'Bash',
                                 expanded: false,
                                 projects: [
-                                    { name: 'Scripts Bash', description: 'Description des scripts Bash.', link: 'https://github.com/morganguichard/scripts-bash', type: 'bg-red-500', expanded: false }
+                                    { name: 'Git Switcher', description: "Très court et simple script pour me permettre d'alterner entre mes deux comptes github.", link: 'https://github.com/morgangch/git_switcher', type: 'bg-yellow-500', expanded: false },
+                                    { name: 'Epi Git Cloner', description: "Script qui permet de cloner mes projets Epitech en reprenant automatiquement la nomenclature des projets Epitech.", link: 'https://github.com/morgangch/git_switcher', type: 'bg-yellow-500', expanded: false }
                                 ]
                             }
                         ]
@@ -134,14 +149,7 @@
                                 name: 'GitHub CLI',
                                 expanded: false,
                                 projects: [
-                                    { name: 'Automatisation GitHub', description: 'Description du projet d\'automatisation avec GitHub CLI.', link: 'https://github.com/morganguichard/automatisation-github-cli', type: 'bg-blue-500', expanded: false }
-                                ]
-                            },
-                            {
-                                name: 'Administration Système',
-                                expanded: false,
-                                projects: [
-                                    { name: 'Scripts d\'administration', description: 'Description des scripts d\'administration système.', link: 'https://github.com/morganguichard/scripts-administration', type: 'bg-yellow-500', expanded: false }
+                                    { name: 'Chocol- Pain au Chocolat', description: 'Projet de mirroring github avec des Github Actions, avec test du Coding Style Epitech.', link: 'https://github.com/morgangch/pain_au_chocolat', type: 'bg-blue-800', expanded: false }
                                 ]
                             }
                         ]
@@ -154,7 +162,8 @@
                                 name: 'Writeups',
                                 expanded: false,
                                 projects: [
-                                    { name: 'GCC CTF 2024', description: "Mon write-up pour la GCC CTF 2024. Que j'ai fini en 5e place.", link: 'https://github.com/morgangch/GCC-CTF-2024', type: 'bg-red-500', expanded: false }
+                                    { name: 'GCC CTF 2024', description: "Mon write-up pour la GCC CTF 2024. Que j'ai fini en 5e place.", link: 'https://github.com/morgangch/GCC-CTF-2024', type: 'bg-red-500', expanded: false },
+                                    { name: 'Burp Epitech 2024', description: "Mon write-up pour le Burp, CTF d'Epitech. Je n'ai pas eu l'occasion de faire beaucoup de challenges étant débordé sur cette période.", link: 'https://github.com/morgangch/Burp', type: 'bg-red-500', expanded: false }
                                 ]
                             }
                         ]
@@ -167,20 +176,21 @@
                                 name: 'Unity',
                                 expanded: false,
                                 projects: [
-                                    { name: 'Jeu Unity', description: 'Description du jeu développé avec Unity.', link: 'https://github.com/morganguichard/jeu-unity', type: 'bg-blue-500', expanded: false }
+                                    { name: "Les Portes de l'Enigme", description: "Jeu développé sur Unity pour une JAM Epitech. Principe simple d'exploration de labyrinthes générés procéduralement, l'idée à terme est d'en faire une génération bien plus poussée avec de vraies énigmes poussées", link: 'https://github.com/morgangch/Jam2', type: 'bg-red-500', expanded: false }
                                 ]
                             },
                             {
                                 name: 'Godot',
                                 expanded: false,
                                 projects: [
+                                    { name: "Pas de projet encore", description: "", link: '', type: '', expanded: false }
                                 ]
                             },
                             {
                                 name: 'Unreal Engine',
                                 expanded: false,
                                 projects: [
-                                    { name: 'Jeu Unreal Engine', description: 'Description du jeu développé avec Unreal Engine.', link: 'https://github.com/morganguichard/jeu-unreal-engine', type: 'bg-blue-500', expanded: false }
+                                    { name: "Pas de projet encore", description: "", link: '', type: '', expanded: false }
                                 ]
                             }
                         ]
