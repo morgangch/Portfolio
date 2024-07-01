@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activités Récentes - Morgan GUICHARD</title>
+    <!-- Inclure Tailwind CSS depuis un CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Inclure FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+    <!-- Inclure FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <!-- Inclure Axios pour les requêtes API -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Inclure Vue.js depuis un CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <style>
+        body {
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+
+        .header {
+            background-color: #161B22;
+        }
+
+        .highlight {
+            color: #0000ff;
+        }
+
+        .repo-card {
+            background-color: #161B22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .repo-card h4 {
+            color: #58a6ff;
+        }
+
+        .repo-card p {
+            color: #8b949e;
+        }
+
+        .star-icon {
+            color: #FFD700;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="header p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-3xl font-bold text-[rgb(0,255,255)]">
+                    <a href="index.html">Morgan GUICHARD</a>
+                </h1>
+                <button @click="toggleMenu" class="lg:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <nav :class="{'block': isMenuOpen, 'hidden': !isMenuOpen}" class="lg:flex lg:items-center lg:space-x-4 flex flex-col lg:flex-row lg:space-y-0 space-y-2 mt-2 lg:mt-0">
+                    <a href="index.html" class="hover:text-gray-400 lg:mt-0 mt-2">Accueil</a>
+                    <a href="cv.html" class="hover:text-gray-400 lg:mt-0 mt-2">CV</a>
+                    <a href="projets.html" class="hover:text-gray-400 lg:mt-0 mt-2">Projets</a>
+                    <a href="contacts.html" class="hover:text-gray-400 lg:mt-0 mt-2">Contacts</a>
+                    <a href="actualite.html" class="hover:text-gray-400 lg:mt-0 mt-2">Actualité</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto p-4">
+            <section class="text-center mb-8">
+                <h2 class="text-2xl font-bold mb-4">Activités Récentes</h2>
+
+                <!-- LinkedIn Posts -->
+                <div id="linkedin-posts" class="mb-8">
+                    <h3 class="text-xl font-bold mb-4">Mes Derniers Posts LinkedIn</h3>
+                    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7186073771445788672" height="300" width="715" frameborder="0" allowfullscreen="" title="Embedded post"></iframe><br>
+                    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7212460278049816576" height="300" width="715" frameborder="0" allowfullscreen="" title="Embedded post"></iframe><br>
+                    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7211287185625362432" height="300" width="715" frameborder="0" allowfullscreen="" title="Embedded post"></iframe><br>
+                </div>
+
+                <!-- GitHub Repositories -->
+                <div id="github-repositories" class="mb-8">
+                    <h3 class="text-xl font-bold mb-4">Mes Derniers Repositories GitHub</h3>
+                    <ul id="github-repo-list" class="space-y-4">
+                        <!-- Les repositories seront insérés ici -->
+                    </ul>
+                </div>
+
+                <!-- Calendrier des Événements -->
+                <div id="calendar" class="mb-8">
+                    <h3 class="text-xl font-bold mb-4">Calendrier des Événements</h3>
+                    <div id="calendar-container"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                isMenuOpen: false
+            },
+            methods: {
+                toggleMenu() {
+                    this.isMenuOpen = !this.isMenuOpen;
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialisation du calendrier
+            var calendarEl = document.getElementById('calendar-container');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    {
+                        title: 'Eurosatory 2024',
+                        start: '2024-06-17',
+                        end: '2024-06-21'
+                    }
+                ]
+            });
+            calendar.render();
+
+            // Récupération des repositories GitHub
+            axios.get('https://api.github.com/users/morgangch/repos')
+                .then(response => {
+                    const repos = response.data.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)).slice(0, 3);
+                    const pinnedRepo = response.data.find(repo => repo.name === 'minishell2');
+                    const repoList = document.getElementById('github-repo-list');
+                    if (pinnedRepo) {
+                        const pinnedRepoItem = document.createElement('li');
+                        pinnedRepoItem.classList.add('repo-card');
+                        pinnedRepoItem.innerHTML = `
+                            <h4 class="text-xl font-bold"><span class="star-icon">★</span> <a href="${pinnedRepo.html_url}" target="_blank">${pinnedRepo.name} (épinglé)</a></h4>
+                            <p>${pinnedRepo.description || "Aucune description fournie."}</p>
+                            <pre>${pinnedRepo.readme || "README non disponible."}</pre>
+                        `;
+                        repoList.appendChild(pinnedRepoItem);
+                    }
+                    repos.forEach(repo => {
+                        const repoItem = document.createElement('li');
+                        repoItem.classList.add('repo-card');
+                        repoItem.innerHTML = `
+                            <h4 class="text-xl font-bold"><a href="${repo.html_url}" target="_blank">${repo.name}</a></h4>
+                            <p>${repo.description || "Aucune description fournie."}</p>
+                            <pre>${repo.readme || "README non disponible."}</pre>
+                        `;
+                        repoList.appendChild(repoItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des repositories GitHub:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>
