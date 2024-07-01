@@ -17,10 +17,24 @@
 
         .header {
             background-color: #161B22;
+            color: #ff6b6b;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Assure que le header est au-dessus des autres éléments */
+        }
+
+        .header .container {
+            padding-top: 1rem; /* Ajuste la hauteur de l'espacement supérieur selon vos besoins */
+            padding-bottom: 1rem; /* Ajuste la hauteur de l'espacement inférieur selon vos besoins */
+        }
+
+        .main-content {
+            margin-top: 100px; /* Ajuste cette valeur pour correspondre à la hauteur du header */
         }
 
         .highlight {
-            color: #0000ff;
+            color: #ff6b6b;
         }
 
         .category,
@@ -48,13 +62,16 @@
         <!-- Header -->
         <header class="header p-4">
             <div class="container mx-auto flex justify-between items-center">
-                <h1 class="text-3xl font-bold text-[rgb(0,255,255)]">Morgan GUICHARD</h1>
+                <h1 class="text-3xl font-bold text-[rgb(0,255,255)]"> <a href=index.html> Morgan GUICHARD</a></h1>
                 <button @click="toggleMenu" class="lg:hidden focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-                <nav :class="{'block': isMenuOpen, 'hidden': !isMenuOpen}" class="lg:flex lg:items-center lg:space-x-4 flex flex-col lg:flex-row lg:space-y-0 space-y-2 mt-2 lg:mt-0">
+                <nav :class="{'block': isMenuOpen, 'hidden': !isMenuOpen}"
+                    class="lg:flex lg:items-center lg:space-x-4 flex flex-col lg:flex-row lg:space-y-0 space-y-2 mt-2 lg:mt-0">
                     <a href="index.html" class="hover:text-gray-400 lg:mt-0 mt-2">Accueil</a>
                     <a href="cv.html" class="hover:text-gray-400 lg:mt-0 mt-2">CV</a>
                     <a href="projets.html" class="hover:text-gray-400 lg:mt-0 mt-2">Projets</a>
@@ -63,30 +80,41 @@
                 </nav>
             </div>
         </header>
-        
+
 
         <!-- Main Content -->
-        <main class="flex-grow container mx-auto p-4">
+        <main class="main-content flex-grow container mx-auto p-4">
             <section class="text-center mb-8">
                 <h2 class="text-2xl font-bold mb-4">Projets</h2>
-                <p class="mb-4">Explorez mes projets par catégorie, langage, et description. Note : Les noms de projets seront accompagnés de petites pastilles : <br>
-                    <em><span class="pastille bg-blue-500"></span>Si la pastille est bleue : Le projet est un projet issu d'un projet scolaire (Lycée / Epitech)</em> <br>
-                    <em><span class="pastille bg-yellow-500"></span>Si la pastille est jaune : Le projet est un projet personnel</em> <br>
-                    <em><span class="pastille bg-red-500"></span>Si la pastille est rouge : Le projet est un projet tiré d'un évènement (JAM, CTF...)</em> <br>                </p>
+                <p class="mb-4">Explorez mes projets par catégorie, langage, et description. Note : Les noms de projets
+                    seront accompagnés de petites pastilles : <br>
+                    <em><span class="pastille bg-blue-500"></span>Si la pastille est bleue : Le projet est un projet
+                        issu d'un projet scolaire (Lycée / Epitech)</em> <br>
+                    <em><span class="pastille bg-yellow-500"></span>Si la pastille est jaune : Le projet est un projet
+                        personnel</em> <br>
+                    <em><span class="pastille bg-red-500"></span>Si la pastille est rouge : Le projet est un projet tiré
+                        d'un évènement (JAM, CTF...)</em> <br>
+                </p>
                 <div v-for="category in projects" :key="category.name" class="mb-6">
-                    <div @click="toggle(category)" class="category text-xl font-bold bg-blue-900 p-2 rounded-md mb-2">{{ category.name }}</div>
+                    <div @click="toggle(category)" class="category text-xl font-bold bg-blue-900 p-2 rounded-md mb-2">{{
+                        category.name }}</div>
                     <div v-if="category.expanded" class="pl-4">
                         <div v-for="language in category.languages" :key="language.name" class="mb-4">
-                            <div @click="toggle(language)" class="language text-lg font-semibold bg-blue-700 p-2 rounded-md mb-2">{{ language.name }}</div>
+                            <div @click="toggle(language)"
+                                class="language text-lg font-semibold bg-blue-700 p-2 rounded-md mb-2">{{ language.name
+                                }}</div>
                             <div v-if="language.expanded" class="pl-4">
                                 <div v-for="project in language.projects" :key="project.name" class="mb-2">
-                                    <div @click="toggle(project)" class="project text-base bg-blue-500 p-2 rounded-md mb-1 flex justify-between items-center">
+                                    <div @click="toggle(project)"
+                                        class="project text-base bg-blue-500 p-2 rounded-md mb-1 flex justify-between items-center">
                                         <span>{{ project.name }}</span>
                                         <span :class="project.type" class="rounded-full h-4 w-4 inline-block"></span>
                                     </div>
                                     <div v-if="project.expanded" class="project-details bg-blue-400 p-2 rounded-md">
                                         <p class="text-white font-bold">{{ project.description }}</p>
-                                        <a :href="project.link" target="_blank" class="text-blue-800 hover:underline hover:text-blue-900 font-bold">Voir le repository GitHub</a>
+                                        <a :href="project.link" target="_blank"
+                                            class="text-blue-800 hover:underline hover:text-blue-900 font-bold">Voir le
+                                            repository GitHub</a>
                                     </div>
                                 </div>
                             </div>

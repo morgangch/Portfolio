@@ -17,10 +17,24 @@
 
         .header {
             background-color: #161B22;
+            color: #ff6b6b;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Assure que le header est au-dessus des autres éléments */
         }
 
-        .highlight {
-            color: #58A6FF;
+        .header .container {
+            padding-top: 1rem; /* Ajuste la hauteur de l'espacement supérieur selon vos besoins */
+            padding-bottom: 1rem; /* Ajuste la hauteur de l'espacement inférieur selon vos besoins */
+        }
+
+        .main-content {
+            margin-top: 100px; /* Ajuste cette valeur pour correspondre à la hauteur du header */
+        }
+
+        .highlight .header {
+            color: #ff6b6b;
         }
     </style>
 </head>
@@ -32,11 +46,14 @@
             <div class="container mx-auto flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-[rgb(0,255,255)]"> <a href=index.html> Morgan GUICHARD</a></h1>
                 <button @click="toggleMenu" class="lg:hidden focus:outline-none">
-                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-                <nav :class="{'block': isMenuOpen, 'hidden': !isMenuOpen}" class="lg:flex lg:items-center lg:space-x-4 flex flex-col lg:flex-row lg:space-y-0 space-y-2 mt-2 lg:mt-0">
+                <nav :class="{'block': isMenuOpen, 'hidden': !isMenuOpen}"
+                    class="lg:flex lg:items-center lg:space-x-4 flex flex-col lg:flex-row lg:space-y-0 space-y-2 mt-2 lg:mt-0">
                     <a href="index.html" class="hover:text-gray-400 lg:mt-0 mt-2">Accueil</a>
                     <a href="cv.html" class="hover:text-gray-400 lg:mt-0 mt-2">CV</a>
                     <a href="projets.html" class="hover:text-gray-400 lg:mt-0 mt-2">Projets</a>
@@ -46,21 +63,24 @@
             </div>
         </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow container mx-auto p-4">
-        <section class="text-center mb-8">
-            <h2 class="text-2xl font-bold mb-4">Mon CV</h2>
-            <p class="mb-4">Téléchargez mon CV en cliquant sur le bouton ci-dessous :</p>
-            <a href="CV_MorganG_Public_2024.pdf" download class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Télécharger le CV</a>
-        </section>
-        <section class="text-center">
-            <h2 class="text-2xl font-bold mb-4">Statut Pro</h2>
-            <p class="max-w-3xl mx-auto leading-8">
-                Je suis actuellement à la recherche d'un <span class="highlight">stage de 4 à 6 mois</span> en Informatique à partir de <span class="highlight">Juillet</span>.<br>
-                Si vous êtes intéressé par mon profil, n'hésitez pas à me contacter via la page de contacts.
-            </p>
-        </section>
-    </main>
+
+        <!-- Main Content -->
+        <main class="main-content flex-grow container mx-auto p-4">
+            <section class="text-center mb-8">
+                <h2 class="text-2xl font-bold mb-4">Mon CV</h2>
+                <p class="mb-4">Téléchargez mon CV en cliquant sur le bouton ci-dessous :</p>
+                <a href="CV_MorganG_Public_2024.pdf" download
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Télécharger le CV</a>
+            </section>
+            <section class="text-center">
+                <h2 class="text-2xl font-bold mb-4">Statut Pro</h2>
+                <p class="max-w-3xl mx-auto leading-8">
+                    Je suis actuellement à la recherche d'un <span class="highlight">stage de 4 à 6 mois</span> en
+                    Informatique à partir de <span class="highlight">Juillet</span>.<br>
+                    Si vous êtes intéressé par mon profil, n'hésitez pas à me contacter via la page de contacts.
+                </p>
+            </section>
+        </main>
     </div>
 
 

@@ -17,6 +17,20 @@
 
         .header {
             background-color: #161B22;
+            color: #ff6b6b;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Assure que le header est au-dessus des autres éléments */
+        }
+
+        .header .container {
+            padding-top: 1rem; /* Ajuste la hauteur de l'espacement supérieur selon vos besoins */
+            padding-bottom: 1rem; /* Ajuste la hauteur de l'espacement inférieur selon vos besoins */
+        }
+
+        .main-content {
+            margin-top: 100px; /* Ajuste cette valeur pour correspondre à la hauteur du header */
         }
 
         .photo {
@@ -27,7 +41,7 @@
         }
 
         .highlight {
-            color: #58A6FF;
+            color: #ff6b6b;
         }
     </style>
 </head>
@@ -54,19 +68,18 @@
         </header>
 
         <!-- Main Content -->
-        <main class="flex-grow container mx-auto p-4">
+        <main class="main-content flex-grow container mx-auto p-4">
             <section class="text-center mb-8">
                 <h2 class="text-2xl font-bold mb-4">Bienvenue sur mon Portfolio</h2>
                 <div class="flex flex-col items-center">
                     <p class="max-w-3xl mx-auto leading-8">
-                        Bonjour, je suis <span class="highlight">Morgan GUICHARD</span>, étudiant en 2e année à Epitech Montpellier (Hérault, France).
+                        Je suis <span class="highlight">Prénom NOM</span>, étudiant en 2e année à Epitech Montpellier.
                         Passionné de <span class="highlight">cybersécurité</span> avec une participation active dans des CTFs, je vise à me
                         spécialiser en <span class="highlight">cybersécurité embarquée</span>. J'ai une forte affinité avec la
                         <span class="highlight">data</span> (particulièrement SQL), le <span class="highlight">DevOps</span> (avec une
                         préférence pour l'automatisation via Github Actions), et le <span class="highlight">développement logiciel</span>. <br><br>
-                        Je vais me présenter un peu plus personnellement que dans mon CV, pour que vous puissiez connaître la personne derrière le CV.
-                        Je suis un étudiant en informatique, le metalleux de service, grand amateur de jeux vidéos, de musique, de littérature.
-                        J'aime pratiquer l'escalade et la course à pied et ait comme hobbie les échecs.
+                        Je suis un étudiant en informatique, grand amateur de jeux vidéos, de musique - principalement metal et rock, de littérature.
+                        J'aime pratiquer l'escalade et la course à pied et apprécie jouer aux échecs.
                         Je suis un grand passionné des sujets des <span class="highlight">nouvelles technologies</span>, mais aussi de la <span class="highlight">géopolitique</span>, de l'<span class="highlight">histoire</span>, <span class="highlight">philosophie</span> et de la <span class="highlight">Défense</span>.
                         Ainsi, c'est possiblement une des raisons qui me pousse aujourd'hui à m'orienter vers la <span class="highlight">cybersécurité embarquée</span> dans le domaine de la Défense, pour allier mes passions et mes compétences.
                         <br><br>
@@ -81,8 +94,8 @@
                         <em>...lire un livre ou regarder un film ?</em> Lire un <span class="highlight">livre</span>, particulièrement des œuvres de science-fiction et de philosophie.
                         <br><br>
                         <strong>Si je devais...</strong><br>
-                        <em>...me qualifier en un mot ?</em> Je dirai <span class="highlight">ambitieux</span> : on me pense souvent idéaliste quand je révèle mes plans d'avenir, j'ai beaucoup d'idées, de projets, et compte en concrétiser beaucoup, notamment en apprentissage de langues, mais aussi en objectifs professionnels.<br>
-                        <em>...changer de pays, ce serait ?</em> Le <span class="highlight">Danemark</span>, un beau pays dont j'admire l'histoire, la culture, la géographie, et les avancées sociales et numériques du pays. L'approche de ce pays sur l'écologie gagne tout mon respect.<br>
+                        <em>...me qualifier en un mot ?</em> Je dirai <span class="highlight">ambitieux</span> : on me pense souvent idéaliste quand je révèle mes plans d'avenir : souvent énormes. De plus, j'ai beaucoup d'idées, de projets, et compte en concrétiser beaucoup, notamment en apprentissage de langues, mais aussi en objectifs professionnels.<br>
+                        <em>...changer de pays, ce serait ?</em> Le <span class="highlight">Danemark</span>, un beau pays dont j'admire l'histoire, la culture, la géographie, et les avancées sociales et numériques. Mais aussi son approche sur l'écologie, qui gagne tout mon respect.<br>
                         <em>...choisir un superhéros, ce serait ?</em> <span class="highlight">Iron Man</span>. J'aime son humour, mais aussi et surtout qu'il soit un rare exemple de superhéros qui n'a pas de superpouvoirs, mais qui a su se forger des outils pour devenir un héros, grâce à son intelligence, la technologie, et sa détermination.
                     </p>
                 </div>
