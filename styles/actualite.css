@@ -1,0 +1,20 @@
+.repo-card {
+    background-color: #161B22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.repo-card h4 {
+    color: #58a6ff;
+}
+
+.repo-card p {
+    color: #8b949e;
+}
+
+.star-icon {
+    color: #FFD700;
+    margin-right: 8px;
+}

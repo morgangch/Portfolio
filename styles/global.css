@@ -1,0 +1,67 @@
+body {
+    background-color: hsl(216, 28%, 7%);
+    color: #C9D1D9;
+}
+
+.header {
+    background-color: #161B22;
+    color: #ff6b6b;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header .container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.main-content {
+    margin-top: 100px;
+}
+
+.highlight {
+    color: #ff6b6b;
+}
+
+
+.footer{
+    background: #161B22;
+}
+
+.footer .box-container {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(5%, 45%));
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+}
+
+.footer .box-container .box h3{
+    font-size: 2.5rem;
+    padding: 1rem 0;
+    color: #fff;  
+}
+
+.footer .box-container .box a{
+    display: block;
+    font-size: 1.5rem;
+    padding: 1em 0;
+    color: #eee;
+}
+
+.footer .box-container .box a i {
+    padding-right: 0.5rem;
+    color: #719fee;
+}
+
+.footer .box-container .box a:hover i {
+    color: #fff;
+}
+
+.footer .copyright {
+    font-size: 1.5rem;
+    padding-top: 5rem;
+}

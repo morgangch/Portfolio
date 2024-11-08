@@ -15,55 +15,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Inclure Vue.js depuis un CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-    <style>
-        body {
-            background-color: #0D1117;
-            color: #C9D1D9;
-        }
-
-        .header {
-            background-color: #161B22;
-            color: #ff6b6b;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000; /* Assure que le header est au-dessus des autres éléments */
-        }
-
-        .header .container {
-            padding-top: 1rem; /* Ajuste la hauteur de l'espacement supérieur selon vos besoins */
-            padding-bottom: 1rem; /* Ajuste la hauteur de l'espacement inférieur selon vos besoins */
-        }
-
-        .main-content {
-            margin-top: 100px; /* Ajuste cette valeur pour correspondre à la hauteur du header */
-        }
-
-        .highlight .header {
-            color: #ff6b6b;
-        }
-
-        .repo-card {
-            background-color: #161B22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .repo-card h4 {
-            color: #58a6ff;
-        }
-
-        .repo-card p {
-            color: #8b949e;
-        }
-
-        .star-icon {
-            color: #FFD700;
-            margin-right: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <link rel="stylesheet" href="styles/actualite.css">
+    <link rel="stylesheet" href="styles/global.css">
 </head>
 
 <body>
@@ -128,20 +82,19 @@
             </section>
         </main>
     </div>
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Mes liens</h3>
+                <a href="https://linkedin.com/in/morgan-guichard"><i class="fab fa-linkedin"></i>Linkedin</a>
+                <a href="https://github.com/morgangch"><i class="fab fa-github"></i>Github</a>
+            </div>
+            <p class="copyright"> © 2024 - Morgan GUICHARD </p>
+        </div>
+    </section>
 
+    <script src="menuscript.js"></script>
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                isMenuOpen: false
-            },
-            methods: {
-                toggleMenu() {
-                    this.isMenuOpen = !this.isMenuOpen;
-                }
-            }
-        });
-
         document.addEventListener('DOMContentLoaded', function () {
             // Initialisation du calendrier
             var calendarEl = document.getElementById('calendar-container');

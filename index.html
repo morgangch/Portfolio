@@ -9,41 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Inclure Vue depuis un CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <style>
-        body {
-            background-color: #0D1117;
-            color: #C9D1D9;
-        }
-
-        .header {
-            background-color: #161B22;
-            color: #ff6b6b;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000; /* Assure que le header est au-dessus des autres éléments */
-        }
-
-        .header .container {
-            padding-top: 1rem; /* Ajuste la hauteur de l'espacement supérieur selon vos besoins */
-            padding-bottom: 1rem; /* Ajuste la hauteur de l'espacement inférieur selon vos besoins */
-        }
-
-        .main-content {
-            margin-top: 100px; /* Ajuste cette valeur pour correspondre à la hauteur du header */
-        }
-
-        .photo {
-            width: 13%;
-            height: 13%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .highlight {
-            color: #ff6b6b;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 </head>
 
 <body>
@@ -68,9 +36,13 @@
         </header>
 
         <!-- Main Content -->
-        <main class="main-content flex-grow container mx-auto p-4">
+        <div class="picture_container">
+            <img src="files/my_pic.png" alt="Morgan GUICHARD" class="picture rounded-full w-40 h-40">
+            <h2 class="text-2xl font-bold">❝ Bienvenue sur mon Portfolio ❞</h2>
+        </div>
+        <hr class="picture_separator my-4">
+        <main class="locmain-content flex-grow container mx-auto p-4">
             <section class="text-center mb-8">
-                <h2 class="text-2xl font-bold mb-4">Bienvenue sur mon Portfolio</h2>
                 <div class="flex flex-col items-center">
                     <p class="max-w-3xl mx-auto leading-8">
                         Je suis <span class="highlight">GUICHARD Morgan</span>, étudiant en 2e année à Epitech Montpellier.
@@ -102,20 +74,18 @@
             </section>
         </main>
     </div>
-
-    <script>
-        new Vue({
-            el: '#app',
-            data: {
-                isMenuOpen: false
-            },
-            methods: {
-                toggleMenu() {
-                    this.isMenuOpen = !this.isMenuOpen;
-                }
-            }
-        });
-    </script>
+    
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Mes liens</h3>
+                <a href="https://linkedin.com/in/morgan-guichard"><i class="fab fa-linkedin"></i>Linkedin</a>
+                <a href="https://github.com/morgangch"><i class="fab fa-github"></i>Github</a>
+            </div>
+            <p class="copyright"> © 2024 - Morgan GUICHARD </p>
+        </div>
+    </section>
+    <script src="menuscript.js"></script>
 </body>
 
 </html>

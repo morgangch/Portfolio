@@ -1,0 +1,17 @@
+.category,
+.language,
+.project {
+    cursor: pointer;
+}
+
+.project-details {
+    display: block;
+}
+
+.pastille {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}

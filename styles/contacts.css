@@ -1,0 +1,11 @@
+.contact-item {
+    margin-bottom: 1rem;
+}
+
+.contact-item a {
+    color: #58A6FF;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
