@@ -28,9 +28,9 @@
     </noscript>
     <!-- Inclure Vue depuis un CDN -->
 
-    <link rel="preload" href="styles/actualite.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="styles/cv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="styles/actualite.css">
+        <link rel="stylesheet" href="styles/cv.css">
     </noscript>
     <link rel="preload" href="styles/global.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
@@ -66,32 +66,28 @@
             </div>
         </header>
 
-
         <!-- Main Content -->
         <main class="main-content flex-grow container mx-auto p-4">
-            <section class="text-center mb-8">
+            <section id="cv-section" class="text-center mb-8">
                 <h2 class="text-2xl font-bold mb-4">Mon CV</h2>
-                <embed class="pdf_viewer" src="files/Mon_CV.pdf" width="1200" height="1020px">
+                <!-- Embed container -->
+                <div id="embed-container" class="flex justify-center items-center">
+                    <embed class="pdf_viewer hidden" src="files/Mon_CV.pdf" id="pdf_viewer" width="100%" height="600px"/>
+                    <button id="show-embed-button" class="hidden bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                        Afficher le CV
+                    </button>
+                </div>
             </section>
+
             <section class="text-center mb-8">
                 <h2 class="text-2xl font-bold mb-4">Le télécharger</h2>
-                <p class="mb-4">Téléchargez mon CV en cliquant sur le bouton ci-dessous :</p>
-                <a href="files/Mon_CV.pdf" download
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Télécharger le CV</a>
-            </section>
-            <section class="text-center">
-                <h2 class="text-2xl font-bold mb-4">Statut Pro</h2>
-                <p class="max-w-3xl mx-auto leading-8">
-                    Je suis actuellement en <span class="highlight">stage de 4 mois</span> à Isalyx Games, à Carcassonne,
-                    en tant que <span class="highlight">Développeur Full-Stack</span> jusqu'à <span class="highlight">fin Décembre</span>.<br>
-                    Cependant, je suis à la recherche d'un contrat de <span class="highlight">stage en part-time</span> du <span class="highlight">15 Septembre au 31 Janvier,</span>
-                    puis d'un <span class="highlight">Stage de 6 mois</span> à partir de <span class="highlight">Février</span>. <br>
-                    Si vous êtes intéressé par mon profil, n'hésitez pas à me contacter via la page de contacts.
-                </p>
+                <a href="files/Mon_CV.pdf" download class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Télécharger le CV
+                </a>
             </section>
         </main>
     </div>
+
     <section class="footer">
         <div class="box-container">
             <div class="box">
@@ -103,6 +99,25 @@
         </div>
     </section>
     <script src="menuscript.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const embed = document.querySelector(".pdf_viewer");
+            const showEmbedButton = document.getElementById("show-embed-button");
+            const screenWidth = window.innerWidth;
+
+
+            // Si l'écran est trop petit (moins de 300px)
+            if (screenWidth < 400) {
+                showEmbedButton.classList.remove("hidden");
+                showEmbedButton.addEventListener("click", function () {
+                    showEmbedButton.classList.add("hidden");
+                    embed.classList.remove("hidden");
+                });
+            } else {
+                embed.classList.remove("hidden");
+            }
+        });
+    </script>
 </body>
 
 </html>
