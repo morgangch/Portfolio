@@ -28,6 +28,24 @@
 
   // New secondary landmarks inherit the existing cartographic grammar.
   const ns = 'http://www.w3.org/2000/svg';
+  const territoryAnchors = new Map();
+  const territoryLabels = [...root.querySelectorAll('.territory-labels text')];
+  Object.values(places).filter(data => data.category === 'territories').forEach((data, index) => {
+    const label = territoryLabels[index];
+    if (!label) return;
+    const px = Number(label.getAttribute('x')) - 14;
+    const py = Number(label.getAttribute('y')) - 4;
+    territoryAnchors.set(data.id, [px, py]);
+    const marker = document.createElementNS(ns, 'g');
+    marker.setAttribute('class', 'poi territory-anchor');
+    marker.dataset.place = data.id;
+    marker.setAttribute('role', 'button');
+    marker.setAttribute('aria-label', `Explorer le territoire ${data.title}`);
+    const circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', px); circle.setAttribute('cy', py); circle.setAttribute('r', 6);
+    marker.append(circle);
+    world.append(marker);
+  });
   Object.values(places).filter(data => data.point).forEach(data => {
     const group = document.createElementNS(ns, 'g');
     group.setAttribute('class', 'poi secondary zoom-detail added-poi');
@@ -62,6 +80,7 @@
   function pointFor(id) {
     const node = points.find(point => point.dataset.place === id);
     if (!node || node.hasAttribute('hidden') || node.closest('[data-layer-group][hidden]')) return null;
+    if (territoryAnchors.has(id)) return territoryAnchors.get(id);
     const bounds = node.getBBox();
     const marker = node.querySelector('circle, rect:not(.poi-hit), path');
     const b = marker ? marker.getBBox() : bounds;

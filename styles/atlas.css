@@ -34,3 +34,5 @@ main>section:not(.contact):after,main>.page-hero:after,.card:after,.cv-card:afte
 @media(max-width:780px){.gis-main{grid-template-columns:1fr}.gis-viewport{height:430px;min-height:0}.place-panel{height:auto;max-height:none;border-left:0;border-top:1px solid var(--ink);padding:1.1rem}.atlas-browser{padding:1rem}.atlas-results{grid-template-columns:1fr}.atlas-filters{grid-template-columns:1fr}.atlas-browser-head{align-items:start}.map-hint{max-width:65%;font-size:.5rem}.atlas-legend{font-size:.57rem}.panel-facts{grid-template-columns:repeat(2,1fr)}}
 
 .gis-shell .poi .poi-hit{fill:transparent;stroke:none;pointer-events:all}.meaningful-routes,.selection-routes,.terrain-lines,.territory-labels{pointer-events:none}
+
+.territory-anchor circle{fill:var(--paper);stroke:var(--ink);stroke-width:2}.territory-anchor.selected circle{fill:var(--coral)}
