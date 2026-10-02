@@ -23,6 +23,13 @@
     ovhcloud: ['Expérience', 'OVHcloud · OPCP', 'SRE en datacenter : MCO de 183 machines physiques, provisioning Debian, inventaire et migration CI/CD.', ['Systèmes', 'Infrastructure', 'SRE']],
     isalyx: ['Expérience', 'Isalyx Group', 'Développement C#/.NET WPF et automatisation des sauvegardes Docker et données avec Rsync.', ['Software', 'C#', 'Automation']],
     epitech: ['Formation', 'Epitech Montpellier', 'Programme Grande École puis Master of Science, au point de départ du parcours présenté.', ['2023—2028', 'RNCP 7']],
+    'ovh-preseed': ['Réalisation OVHcloud', 'Provisioning Debian', 'Conception d’un preseed Debian automatisant le déploiement et la configuration initiale des serveurs.', ['Debian', 'Preseed', 'Automation']],
+    'ovh-inventory': ['Réalisation OVHcloud', 'Inventaire d’infrastructure', 'Inventaire des machines sur site avec Netbox et OpenStack dans le cadre d’OPCP.', ['Netbox', 'OpenStack', 'Infrastructure']],
+    'ovh-cicd': ['Réalisation OVHcloud', 'Migration CI/CD', 'Migration de workflows OVH CDS v1 vers v2.', ['CI/CD', 'OVH CDS', 'SRE']],
+    'isalyx-dotnet': ['Réalisation Isalyx', 'Interfaces C# / .NET WPF', 'Développement orienté objet d’interfaces utilisateur logicielles.', ['C#', '.NET', 'WPF']],
+    'isalyx-backup': ['Réalisation Isalyx', 'Sauvegardes automatisées', 'Script de sauvegarde des images Docker et des données d’entreprise via Rsync.', ['Rsync', 'Docker', 'Automation']],
+    'epitech-pge': ['Formation', 'Programme Grande École', 'Cursus Epitech suivi à Montpellier de 2023 à 2026.', ['2023—2026', 'Epitech']],
+    'epitech-msc': ['Formation', 'Master of Science', 'Cursus 2026—2028 préparant le titre RNCP niveau 7 d’Architecte de Systèmes d’Information.', ['2026—2028', 'RNCP 7']],
     privescord: ['Projet défensif', 'PrivEscCord', 'Audit en lecture seule de configurations Discord avec onze contrôles classés par criticité.', ['Python', 'Audit', '11 contrôles']],
     ctf: ['Pratique offensive', 'CTF', 'Cycom CTF : 4e en 2024 et 5e en 2025. GCC CTF 2024 : 5e.', ['Cycom', 'GCC', 'Write-ups']],
     vscode: ['Outil', 'Extension VS Code', 'Suivi des quotas de Claude, Codex et OpenCode via JSON-RPC, SQLite et backoff exponentiel.', ['TypeScript', 'JSON-RPC']],
@@ -46,7 +53,7 @@
     world.setAttribute('transform', `translate(${x} ${y}) scale(${scale})`);
     const detailed = scale >= 1.45;
     root.classList.toggle('is-detailed', detailed);
-    root.querySelectorAll('.skill-pois [data-place], [data-place].zoom-detail').forEach(place => {
+    root.querySelectorAll('.skill-pois [data-place], .experience-subpois [data-place], [data-place].zoom-detail').forEach(place => {
       const layerHidden = place.closest('[data-layer-group]')?.hidden;
       place.setAttribute('tabindex', detailed && !layerHidden ? '0' : '-1');
     });

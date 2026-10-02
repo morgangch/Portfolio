@@ -84,7 +84,7 @@ Fantasy, parchemin, fausse classification militaire, terminal hacker, noir/vert 
 
 ## 10. Déclinaisons numériques
 
-La source de vérité reste `assets/monogram.svg`. Les exports raster doivent toujours être régénérés depuis cette géométrie, sans simplification de couleur entre formats :
+La marque principale reste `assets/monogram.svg`. Les petits exports raster sont régénérés depuis la géométrie simplifiée de `assets/favicon.svg`, sans variation de couleur entre formats :
 
 - `favicon-16x16.png` et `favicon-32x32.png` pour les navigateurs historiques ;
 - `favicon.ico`, contenant les variantes 16 et 32 px ;
@@ -101,3 +101,7 @@ Le portfolio possède **une seule carte canonique**, sur la page d’accueil. El
 Une route n’est affichée que lorsqu’elle exprime une relation vérifiable dans le parcours ou dans la construction d’un système. Les positions sont conceptuelles : Résurgence occupe l’intersection des cinq domaines et OVHcloud la jonction systèmes–infrastructure–SRE.
 
 La métaphore s’arrête lorsqu’un autre format transmet mieux l’information. Une architecture utilise un diagramme d’architecture, un parcours utilise une chronologie et une page de contact reste une page de contact. Les pages secondaires peuvent pointer vers un repère de l’Atlas, mais ne créent pas de carte concurrente.
+
+## 12. Repère compact / favicon
+
+Le favicon utilise `assets/favicon.svg`, une réduction volontaire du symbole principal : deux lignes topographiques, une route corail et un nœud ambre. Cette version supprime les détails secondaires qui se brouillent à 16 px. Elle est réservée aux favicons, icônes d’application et petits avatars ; le header, les documents et les grands supports continuent d’utiliser `assets/monogram.svg`.
