@@ -2,7 +2,7 @@
 
 Copier le bloc ci-dessous dans Claude Design, puis joindre :
 
-1. ce repository ou, au minimum, `docs/visual-identity.md`, `assets/monogram.svg`, `assets/favicon.svg`, `assets/social-card.svg`, `index.html` et `styles/atlas.css` ;
+1. ce repository ou, au minimum, `docs/visual-identity.md`, `assets/logo-mark.svg`, `assets/monogram.svg`, `assets/social-card.svg`, `index.html` et `styles/atlas.css` ;
 2. les trois CV PDF présents dans `files/` ;
 3. `assets/profile-photo.png`, photo de profil de référence validée (ne pas utiliser `files/my_pic.png`) ;
 4. uniquement les captures de projets dont la publication est autorisée.
@@ -19,7 +19,7 @@ Analyse avant de créer :
 
 - `docs/visual-identity.md`, source normative de la direction artistique ;
 - le portfolio et ses tokens dans `styles/atlas.css` ;
-- `assets/logo-mark.svg` pour la marque principale sur fond clair, `assets/monogram.svg` pour la tuile sombre et `assets/favicon.svg` pour les très petites tailles ;
+- `assets/logo-mark.svg` pour la marque principale sur fond clair et `assets/monogram.svg` pour la tuile sombre, les favicons et les très petites tailles ;
 - les trois CV source : cybersécurité défensive/systèmes, DevOps/cloud/infrastructure et software engineering/backend ;
 - `assets/profile-photo.png`, seule photo de référence à utiliser ; ne pas utiliser `files/my_pic.png`.
 

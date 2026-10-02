@@ -37,9 +37,8 @@ Le logo validé fusionne les initiales **M** et **G** dans une construction géo
 
 - `assets/logo-mark.svg` : version principale bleu pétrole sur fond clair.
 - `assets/monogram.svg` : version en réserve dans une tuile bleu pétrole, utilisée dans le header et sur les fonds complexes.
-- `assets/favicon.svg` : simplification renforcée pour les tailles 16–64 px.
 - Zone de protection : au moins un quart de la hauteur du signe.
-- Taille minimale : 16 px pour le favicon, 24 px pour la tuile, 8 mm pour la version imprimée.
+- Taille minimale : 16 px pour la tuile/favicone, 8 mm pour la version imprimée.
 - Version monochrome : signe plein ou tracé en réserve ; le carré-repère adopte la même couleur en monochrome.
 - Ne jamais recomposer les lettres, déplacer le carré, ajouter une ombre ou utiliser l’ancien symbole route/courbes de niveau.
 
@@ -85,7 +84,7 @@ Fantasy, parchemin, fausse classification militaire, terminal hacker, noir/vert 
 
 ## 10. Déclinaisons numériques
 
-La marque principale est `assets/logo-mark.svg` sur fond clair et `assets/monogram.svg` en tuile. Les petits exports raster sont régénérés depuis `assets/favicon.svg`, sans variation de couleur entre formats :
+La marque principale est `assets/logo-mark.svg` sur fond clair et `assets/monogram.svg` en tuile. Tous les exports raster sont régénérés depuis ce même logo, sans symbole alternatif ni variation de géométrie :
 
 - `favicon-16x16.png` et `favicon-32x32.png` pour les navigateurs historiques ;
 - `favicon.ico`, contenant les variantes 16 et 32 px ;
@@ -103,9 +102,9 @@ Une route n’est affichée que lorsqu’elle exprime une relation vérifiable d
 
 La métaphore s’arrête lorsqu’un autre format transmet mieux l’information. Une architecture utilise un diagramme d’architecture, un parcours utilise une chronologie et une page de contact reste une page de contact. Les pages secondaires peuvent pointer vers un repère de l’Atlas, mais ne créent pas de carte concurrente.
 
-## 12. Repère compact / favicon
+## 12. Favicon et icônes
 
-Le favicon utilise `assets/favicon.svg`, déclinaison simplifiée du logo MG Atlas. Les épaisseurs sont renforcées et le carré corail agrandi pour rester lisible à 16 px. Tous les favicons, icônes d’application, avatars de petite taille et exports Android/Apple doivent reprendre ce même signe.
+Le favicon n’est plus une marque distincte : il reprend directement le nouveau logo MG Atlas de `assets/monogram.svg`. Les exports 16/32 px, ICO, Apple Touch Icon et Android conservent exactement le pli MG et le carré corail. Aucun ancien symbole cartographique alternatif ne doit être réintroduit.
 
 ## 13. Photographie de référence
 
