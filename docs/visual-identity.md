@@ -31,16 +31,16 @@ Sur papier, conserver `ink`, `coral`, `amber` et `paper`; une version monochrome
 
 Échelle web indicative : 12 px métadonnée, 14 px interface, 16 px texte, 21 px introduction, 32–60 px titre de section, 44–94 px titre manifeste. Titres serrés (`-0.045em` à `-0.065em`), texte courant non serré.
 
-## 4. Logo
+## 4. Symbole Atlas
 
-Le monogramme combine un **M** continu, les deux ouvertures d’un **G** suggéré et une route verticale entre deux nœuds. Il doit rester géométrique et lisible à 16 px.
+Le symbole n’est plus un monogramme. C’est une **tuile de terrain technique** : deux courbes de niveau décrivent le système, une route corail le traverse et un nœud ambre marque le point où les couches se rencontrent. Les petites graduations en bas à droite évoquent un repère de carte et une grille d’infrastructure. Cette construction reste identifiable à 16 px sans dépendre de lettres.
 
-- Source : `assets/monogram.svg`.
+- Source : `assets/monogram.svg` (nom de fichier conservé pour la compatibilité des URL).
 - Zone de protection : au moins un quart de la largeur du symbole.
 - Taille minimale : 16 px numérique, 6 mm imprimé.
-- Version principale : fond `ink`, trait `paper`, route `coral`, nœuds `amber`.
-- Version monochrome : fond plein + tracé en réserve, ou tracé `ink` seul sur fond clair.
-- Ne pas étirer, ombrer, incliner, ajouter de texte dans le symbole ou modifier séparément ses proportions.
+- Version principale : fond `ink`, courbes `paper`, route `coral`, nœud `amber`.
+- Version monochrome : fond plein et tous les tracés en réserve ; conserver la différence d’épaisseur route/contours.
+- Ne pas étirer, arrondir davantage, ajouter d’initiales, ombrer ou transformer le symbole en blason.
 
 ## 5. Grammaire cartographique
 
@@ -81,3 +81,15 @@ Base de 4 px, avec l’échelle : 8, 12, 16, 24, 32, 48, 80 px. Largeur web maxi
 ## 9. À éviter
 
 Fantasy, parchemin, fausse classification militaire, terminal hacker, noir/vert Matrix, gradients SaaS violets, glassmorphism, bruit permanent, cartes de technologies, jauges de maîtrise, courbes topographiques derrière chaque texte, animation de déplacement continu et toute donnée non sourcée.
+
+## 10. Déclinaisons numériques
+
+La source de vérité reste `assets/monogram.svg`. Les exports raster doivent toujours être régénérés depuis cette géométrie, sans simplification de couleur entre formats :
+
+- `favicon-16x16.png` et `favicon-32x32.png` pour les navigateurs historiques ;
+- `favicon.ico`, contenant les variantes 16 et 32 px ;
+- `apple-touch-icon.png` en 180 × 180 px ;
+- `android-chrome-192x192.png` et `android-chrome-512x512.png` pour le manifeste ;
+- `assets/social-card.png` en 1200 × 630 px, export raster de `assets/social-card.svg`.
+
+À très petite taille, la lecture attendue est d’abord celle d’une route corail traversant des courbes claires vers un nœud ambre. Les graduations sont secondaires et peuvent disparaître optiquement sans altérer le symbole.
