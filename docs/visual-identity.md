@@ -59,7 +59,7 @@ Ne jamais faire d’une technologie individuelle une ville principale. Sur petit
 - **En-tête** : monogramme + nom + descripteur mono ; 76 px de haut sur le web.
 - **Bouton** : rectangle sans rayon notable, contour 1 px ; déplacement 2 px et ombre `amber` au survol.
 - **Carte éditoriale** : surface claire, bord supérieur 4 px, métadonnée mono corail.
-- **Étude de cas** : colonne signalétique fixe + récit long ; diagrammes fond `ink`.
+- **Étude de cas** : colonne signalétique fixe + récit long ; diagrammes choisis pour leur lisibilité technique, sans géographie artificielle.
 - **Repère chiffré** : chiffre dominant, légende factuelle courte ; toujours fournir le contexte.
 - **Séparateur** : frontière 1 px, jamais un ornement gratuit.
 
@@ -72,7 +72,7 @@ Base de 4 px, avec l’échelle : 8, 12, 16, 24, 32, 48, 80 px. Largeur web maxi
 ## 8. Application future aux CV
 
 - Bandeau : logo, nom, spécialisation et coordonnées réelles.
-- Colonne principale : expériences et projets sous forme de tracé chronologique.
+- Colonne principale : expériences et projets sous forme de chronologie éditoriale claire.
 - Colonne secondaire : légende textuelle des domaines et compétences, sans jauges.
 - Utiliser une seule mini-carte abstraite au maximum, comme index du profil, jamais comme fond décoratif.
 - Reprendre la même palette, les mêmes métadonnées en DM Mono et le même traitement de chiffres.
@@ -93,3 +93,11 @@ La source de vérité reste `assets/monogram.svg`. Les exports raster doivent to
 - `assets/social-card.png` en 1200 × 630 px, export raster de `assets/social-card.svg`.
 
 À très petite taille, la lecture attendue est d’abord celle d’une route corail traversant des courbes claires vers un nœud ambre. Les graduations sont secondaires et peuvent disparaître optiquement sans altérer le symbole.
+
+## 11. Carte canonique et limites de la métaphore
+
+Le portfolio possède **une seule carte canonique**, sur la page d’accueil. Elle fonctionne comme un petit SIG fictif : déplacement, zoom, couches, POI sélectionnables et fiche contextuelle. Les cinq surfaces représentent les domaines ; les lieux représentent les projets, expériences ou compétences. La densité des labels augmente avec le zoom.
+
+Une route n’est affichée que lorsqu’elle exprime une relation vérifiable dans le parcours ou dans la construction d’un système. Les positions sont conceptuelles : Résurgence occupe l’intersection des cinq domaines et OVHcloud la jonction systèmes–infrastructure–SRE.
+
+La métaphore s’arrête lorsqu’un autre format transmet mieux l’information. Une architecture utilise un diagramme d’architecture, un parcours utilise une chronologie et une page de contact reste une page de contact. Les pages secondaires peuvent pointer vers un repère de l’Atlas, mais ne créent pas de carte concurrente.
