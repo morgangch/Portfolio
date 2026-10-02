@@ -1,185 +1,255 @@
 (() => {
   const root = document.querySelector('#atlas-map');
-  if (!root) return;
-
+  if (!root || !window.ATLAS_DATA) return;
+  const places = window.ATLAS_DATA;
   const viewport = root.querySelector('.gis-viewport');
   const world = root.querySelector('#map-world');
   const status = root.querySelector('.gis-status');
   const panel = root.querySelector('.place-panel');
-  const title = panel.querySelector('.panel-title');
-  const kind = panel.querySelector('.panel-kind');
-  const copy = panel.querySelector('.panel-copy');
-  const tags = panel.querySelector('.panel-tags');
-  const link = panel.querySelector('.panel-link');
-  const coordinates = panel.querySelector('.panel-coords');
-
-  const places = {
-    cyber: ['Territoire', 'Cybersécurité défensive', 'Contrôle d’accès, cloisonnement, détection et compréhension des chemins d’attaque.', ['Défense', 'Analyse', 'Réseau']],
-    systems: ['Territoire', 'Systèmes / Linux', 'Le socle de la carte : Debian, services, provisioning et exploitation des environnements.', ['Linux', 'Debian', 'Systemd']],
-    infra: ['Territoire', 'Infrastructure / cloud', 'Machines physiques, inventaire, réseau, conteneurs et plateformes cloud.', ['OpenStack', 'Netbox', 'Réseau']],
-    sre: ['Territoire', 'DevOps / SRE', 'Le corridor entre construction et exploitation : CI/CD, MCO, automatisation et observabilité.', ['CI/CD', 'MCO', 'Observabilité']],
-    software: ['Territoire', 'Software engineering', 'Backend, API, modèles de données, interfaces et outils destinés aux développeurs.', ['Python', 'TypeScript', 'C#']],
-    resurgence: ['Projet majeur', 'Projet Résurgence', 'Plateforme en production située au croisement du software, des systèmes, de l’infrastructure, du SRE et de la sécurité.', ['100+ endpoints', '10+ services', '~90 joueurs'], 'projets.html#resurgence'],
-    ovhcloud: ['Expérience', 'OVHcloud · OPCP', 'SRE en datacenter : MCO de 183 machines physiques, provisioning Debian, inventaire et migration CI/CD.', ['Systèmes', 'Infrastructure', 'SRE']],
-    isalyx: ['Expérience', 'Isalyx Group', 'Développement C#/.NET WPF et automatisation des sauvegardes Docker et données avec Rsync.', ['Software', 'C#', 'Automation']],
-    epitech: ['Formation', 'Epitech Montpellier', 'Programme Grande École puis Master of Science, au point de départ du parcours présenté.', ['2023—2028', 'RNCP 7']],
-    'ovh-preseed': ['Réalisation OVHcloud', 'Provisioning Debian', 'Conception d’un preseed Debian automatisant le déploiement et la configuration initiale des serveurs.', ['Debian', 'Preseed', 'Automation']],
-    'ovh-inventory': ['Réalisation OVHcloud', 'Inventaire d’infrastructure', 'Inventaire des machines sur site avec Netbox et OpenStack dans le cadre d’OPCP.', ['Netbox', 'OpenStack', 'Infrastructure']],
-    'ovh-cicd': ['Réalisation OVHcloud', 'Migration CI/CD', 'Migration de workflows OVH CDS v1 vers v2.', ['CI/CD', 'OVH CDS', 'SRE']],
-    'isalyx-dotnet': ['Réalisation Isalyx', 'Interfaces C# / .NET WPF', 'Développement orienté objet d’interfaces utilisateur logicielles.', ['C#', '.NET', 'WPF']],
-    'isalyx-backup': ['Réalisation Isalyx', 'Sauvegardes automatisées', 'Script de sauvegarde des images Docker et des données d’entreprise via Rsync.', ['Rsync', 'Docker', 'Automation']],
-    'epitech-pge': ['Formation', 'Programme Grande École', 'Cursus Epitech suivi à Montpellier de 2023 à 2026.', ['2023—2026', 'Epitech']],
-    'epitech-msc': ['Formation', 'Master of Science', 'Cursus 2026—2028 préparant le titre RNCP niveau 7 d’Architecte de Systèmes d’Information.', ['2026—2028', 'RNCP 7']],
-    privescord: ['Projet défensif', 'PrivEscCord', 'Audit en lecture seule de configurations Discord avec onze contrôles classés par criticité.', ['Python', 'Audit', '11 contrôles']],
-    ctf: ['Pratique offensive', 'CTF', 'Cycom CTF : 4e en 2024 et 5e en 2025. GCC CTF 2024 : 5e.', ['Cycom', 'GCC', 'Write-ups']],
-    vscode: ['Outil', 'Extension VS Code', 'Suivi des quotas de Claude, Codex et OpenCode via JSON-RPC, SQLite et backoff exponentiel.', ['TypeScript', 'JSON-RPC']],
-    linux: ['Compétence', 'Linux / Debian', 'Administration, services systemd et provisioning automatisé avec preseed.', ['Systems']],
-    docker: ['Compétence', 'Docker / Systemd', 'Conteneurisation et exploitation de services sur VPS Linux.', ['Infrastructure', 'SRE']],
-    observability: ['Compétence', 'Observabilité', 'Pages de supervision réseau et sécurité ; pratique de Grafana et Prometheus.', ['SRE', 'Security']],
-    backend: ['Compétence', 'Backend / API', 'Flask, SQLAlchemy, PostgreSQL, Alembic et conception d’API REST.', ['Software']],
-    security: ['Compétence', 'Contrôle d’accès', 'JWT, scopes, WireGuard, UFW, TLS et limitation de l’exposition des services.', ['Cybersecurity']]
+  const browser = root.querySelector('.atlas-browser');
+  const search = root.querySelector('#atlas-search');
+  const domain = root.querySelector('#atlas-domain');
+  const category = root.querySelector('#atlas-category');
+  const results = root.querySelector('.atlas-results');
+  const more = root.querySelector('.atlas-more');
+  let scale = 1, x = 0, y = 0, selected = null, limit = 9;
+  let drag = null, moved = false;
+  const activeLayers = new Set(['projects', 'experiences']);
+  const normalize = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const el = (tag, text, className) => {
+    const node = document.createElement(tag);
+    if (text) node.textContent = text;
+    if (className) node.className = className;
+    return node;
   };
+  const matches = data => (!domain.value || data.domains.includes(domain.value)) &&
+    (!category.value || data.category === category.value) &&
+    normalize([data.title, data.summary, data.kind, ...data.tags, ...data.details].join(' ')).includes(normalize(search.value.trim()));
 
-  let scale = 1;
-  let x = 0;
-  let y = 0;
-  let dragging = false;
-  let moved = false;
-  let pointer = { x: 0, y: 0 };
-
+  // New secondary landmarks inherit the existing cartographic grammar.
+  const ns = 'http://www.w3.org/2000/svg';
+  Object.values(places).filter(data => data.point).forEach(data => {
+    const group = document.createElementNS(ns, 'g');
+    group.setAttribute('class', 'poi secondary zoom-detail added-poi');
+    group.dataset.place = data.id;
+    group.setAttribute('role', 'button');
+    group.setAttribute('aria-label', `${data.title}, ${data.kind}`);
+    const [px, py] = data.point;
+    const circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', px); circle.setAttribute('cy', py); circle.setAttribute('r', 6);
+    const label = document.createElementNS(ns, 'text');
+    label.setAttribute('x', px + 12); label.setAttribute('y', py - 4);
+    label.textContent = data.title.toUpperCase();
+    group.append(circle, label);
+    root.querySelector('[data-layer-group="projects"]').append(group);
+  });
+  // An SVG with interactive descendants must expose them to assistive technology.
+  root.querySelector('.gis-canvas').setAttribute('role', 'group');
+  const points = [...root.querySelectorAll('[data-place]')];
+  points.filter(point => point.classList.contains('poi')).forEach(point => {
+    const bounds = point.getBBox();
+    const hit = document.createElementNS(ns, 'rect');
+    hit.setAttribute('class', 'poi-hit');
+    hit.setAttribute('x', bounds.x - 4); hit.setAttribute('y', bounds.y - 4);
+    hit.setAttribute('width', Math.max(16, bounds.width + 8));
+    hit.setAttribute('height', Math.max(16, bounds.height + 8));
+    point.prepend(hit);
+  });
+  const routes = document.createElementNS(ns, 'g');
+  routes.setAttribute('class', 'selection-routes');
+  routes.setAttribute('aria-hidden', 'true');
+  world.insertBefore(routes, root.querySelector('.poi-layer'));
+  function pointFor(id) {
+    const node = points.find(point => point.dataset.place === id);
+    if (!node || node.hasAttribute('hidden') || node.closest('[data-layer-group][hidden]')) return null;
+    const bounds = node.getBBox();
+    const marker = node.querySelector('circle, rect:not(.poi-hit), path');
+    const b = marker ? marker.getBBox() : bounds;
+    return [b.x + b.width / 2, b.y + b.height / 2];
+  }
   function renderTransform() {
-    x = Math.min(250 * scale, Math.max(900 - (1150 * scale), x));
-    y = Math.min(180 * scale, Math.max(620 - (800 * scale), y));
+    x = Math.min(250 * scale, Math.max(900 - 1150 * scale, x));
+    y = Math.min(180 * scale, Math.max(620 - 800 * scale, y));
     world.setAttribute('transform', `translate(${x} ${y}) scale(${scale})`);
-    const detailed = scale >= 1.45;
-    root.classList.toggle('is-detailed', detailed);
-    root.querySelectorAll('.skill-pois [data-place], .experience-subpois [data-place], [data-place].zoom-detail').forEach(place => {
-      const layerHidden = place.closest('[data-layer-group]')?.hidden;
-      place.setAttribute('tabindex', detailed && !layerHidden ? '0' : '-1');
-    });
+    root.classList.toggle('is-detailed', scale >= 1.45);
     root.dataset.zoom = scale.toFixed(2);
-    status.textContent = `Vue interactive · zoom ${scale.toFixed(1).replace('.', ',')}×`;
+    points.forEach(point => {
+      const data = places[point.dataset.place];
+      const layer = point.closest('[data-layer-group]');
+      const enabled = !layer || activeLayers.has(layer.dataset.layerGroup);
+      point.toggleAttribute('hidden', !enabled || !matches(data));
+      const detail = point.matches('.zoom-detail') || point.closest('.zoom-detail');
+      const visible = !point.hasAttribute('hidden') && (!detail || scale >= 1.45);
+      point.setAttribute('tabindex', visible ? '0' : '-1');
+      point.setAttribute('aria-hidden', String(!visible));
+    });
+    routes.replaceChildren();
+    if (selected) {
+      const start = pointFor(selected);
+      if (start) places[selected].related.forEach(id => {
+        const end = pointFor(id);
+        const node = points.find(p => p.dataset.place === id);
+        if (!end || node.getAttribute('aria-hidden') === 'true') return;
+        const line = document.createElementNS(ns, 'path');
+        line.setAttribute('d', `M${start.join(' ')}L${end.join(' ')}`);
+        routes.append(line);
+      });
+    }
+    status.textContent = `Zoom ${scale.toFixed(1).replace('.', ',')}× · ${points.filter(p => p.getAttribute('aria-hidden') === 'false').length} repères visibles`;
   }
-
-  function zoom(delta) {
-    const next = Math.min(2.6, Math.max(0.9, scale * delta));
-    if (next === scale) return;
-    const centerX = 450;
-    const centerY = 310;
-    x = centerX - (centerX - x) * (next / scale);
-    y = centerY - (centerY - y) * (next / scale);
-    scale = next;
-    renderTransform();
+  function zoom(factor) {
+    const next = Math.min(2.6, Math.max(.9, scale * factor));
+    x = 450 - (450 - x) * next / scale;
+    y = 310 - (310 - y) * next / scale;
+    scale = next; renderTransform();
   }
-
-  function selectPlace(id, focusPanel = false) {
+  function selectPlace(id, focus = false, updateURL = true) {
     const data = places[id];
     if (!data) return;
-    root.querySelectorAll('[data-place].selected').forEach(el => el.classList.remove('selected'));
-    root.querySelectorAll(`[data-place="${id}"]`).forEach(el => el.classList.add('selected'));
-    kind.textContent = data[0];
-    title.textContent = data[1];
-    copy.textContent = data[2];
-    tags.replaceChildren(...data[3].map(value => {
-      const item = document.createElement('li');
-      item.textContent = value;
-      return item;
-    }));
-    if (data[4]) {
-      link.href = data[4];
-      link.hidden = false;
-    } else {
-      link.hidden = true;
-    }
-    coordinates.textContent = `ATLAS MG · ${id.toUpperCase()}`;
-    panel.classList.add('open');
-    if (focusPanel) title.focus?.();
-  }
-
-  root.querySelectorAll('[data-place]').forEach(place => {
-    place.addEventListener('click', event => {
-      if (!moved) selectPlace(event.currentTarget.dataset.place);
-    });
-    place.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        selectPlace(event.currentTarget.dataset.place);
+    selected = id;
+    if (focus) {
+      if (!matches(data)) { search.value = domain.value = category.value = ''; limit = 9; renderResults(); }
+      if (data.category !== 'territories' && !activeLayers.has(data.category)) {
+        activeLayers.add(data.category);
+        const button = root.querySelector(`[data-layer="${data.category}"]`);
+        button?.setAttribute('aria-pressed', 'true'); button?.classList.add('active');
+        root.querySelector(`[data-layer-group="${data.category}"]`)?.removeAttribute('hidden');
       }
-    });
-  });
-
-  root.querySelectorAll('.layer-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      const active = button.getAttribute('aria-pressed') !== 'true';
-      button.setAttribute('aria-pressed', String(active));
-      button.classList.toggle('active', active);
-      root.querySelectorAll(`[data-layer-group="${button.dataset.layer}"]`).forEach(layer => {
-        layer.hidden = !active;
+      const node = points.find(point => point.dataset.place === id);
+      if (node) {
+        if (node.matches('.zoom-detail') || node.closest('.zoom-detail')) scale = Math.max(scale, 1.5);
+        renderTransform();
+        const center = pointFor(id);
+        if (center) { x = 450 - center[0] * scale; y = 310 - center[1] * scale; }
+      }
+    }
+    points.forEach(p => p.classList.toggle('selected', p.dataset.place === id));
+    root.querySelectorAll('.atlas-result').forEach(p => p.classList.toggle('selected', p.dataset.place === id));
+    panel.querySelector('.panel-kind').textContent = data.kind;
+    const title = panel.querySelector('.panel-title');
+    title.textContent = data.title; title.tabIndex = -1;
+    panel.querySelector('.panel-copy').textContent = data.summary;
+    panel.querySelector('.panel-tags').replaceChildren(...data.tags.map(tag => el('li', tag)));
+    const link = panel.querySelector('.panel-link');
+    link.hidden = !data.url;
+    if (data.url) { link.href = data.url; link.textContent = data.url.startsWith('https://github.com/') ? 'Explorer le dépôt →' : 'Ouvrir l’étude de cas →'; }
+    const content = panel.querySelector('.panel-content');
+    content.replaceChildren();
+    if (data.period || data.state) content.append(el('p', [data.period, data.state].filter(Boolean).join(' · '), 'panel-state'));
+    if (data.facts.length) {
+      const facts = el('dl', '', 'panel-facts');
+      data.facts.forEach(([number, label]) => { const item = el('div'); item.append(el('dt', number), el('dd', label)); facts.append(item); });
+      content.append(facts);
+    }
+    data.details.forEach(text => content.append(el('p', text)));
+    if (data.related.length) {
+      content.append(el('h4', 'Explorer les connexions'));
+      const related = el('div', '', 'panel-related');
+      data.related.forEach(id => {
+        const target = places[id];
+        if (!target) return;
+        const button = el('button', target.title);
+        button.type = 'button';
+        button.addEventListener('click', () => selectPlace(id, true));
+        related.append(button);
       });
-      renderTransform();
-      status.textContent = `${button.textContent.trim()} ${active ? 'affichées' : 'masquées'}`;
+      content.append(related);
+    }
+    if (data.sources.length) {
+      content.append(el('h4', 'Sources'));
+      data.sources.forEach(source => { const a = el('a', source.label, 'panel-source'); a.href = source.url; content.append(a); });
+    }
+    panel.querySelector('.panel-coords').textContent = `ATLAS MG · ${id.toUpperCase()} · 02.10.2026`;
+    panel.classList.add('open');
+    if (updateURL) history.replaceState(null, '', `#atlas/${id}`);
+    renderTransform();
+    if (focus) { panel.scrollIntoView({block:'nearest', behavior:'auto'}); title.focus({preventScroll:true}); }
+  }
+  function renderResults() {
+    const entries = Object.values(places).filter(matches);
+    root.querySelector('.atlas-count').textContent = `${entries.length} / ${Object.keys(places).length} fiches`;
+    results.replaceChildren();
+    entries.slice(0, limit).forEach(data => {
+      const button = el('button', '', 'atlas-result');
+      button.type = 'button'; button.dataset.place = data.id;
+      button.classList.toggle('selected', data.id === selected);
+      button.append(el('span', data.kind, 'meta'), el('strong', data.title), el('span', data.summary), el('small', data.tags.join(' · ')));
+      button.addEventListener('click', () => selectPlace(data.id, true));
+      results.append(button);
+    });
+    if (!entries.length) results.append(el('p', 'Aucun repère trouvé. Essayez un autre terme ou effacez les filtres.'));
+    more.hidden = entries.length <= limit;
+    more.textContent = `Afficher davantage (${entries.length - Math.min(entries.length, limit)} restantes)`;
+    renderTransform();
+  }
+  points.forEach(point => {
+    point.addEventListener('click', () => { if (!moved) selectPlace(point.dataset.place); });
+    point.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); selectPlace(point.dataset.place); }
     });
   });
-
+  root.querySelectorAll('.layer-btn').forEach(button => button.addEventListener('click', () => {
+    const layer = button.dataset.layer;
+    if (activeLayers.has(layer)) activeLayers.delete(layer); else activeLayers.add(layer);
+    button.setAttribute('aria-pressed', String(activeLayers.has(layer)));
+    button.classList.toggle('active', activeLayers.has(layer));
+    // Turning on skills also reveals their zoom-dependent landmarks.
+    if (layer === 'skills' && activeLayers.has(layer) && scale < 1.45) zoom(1.5 / scale);
+    root.querySelectorAll(`[data-layer-group="${layer}"]`).forEach(group => { group.toggleAttribute('hidden', !activeLayers.has(layer)); });
+    renderTransform();
+  }));
+  [search, domain, category].forEach(input => input.addEventListener('input', () => { limit = 9; renderResults(); }));
+  more.addEventListener('click', () => { limit += 9; renderResults(); });
+  root.querySelector('#atlas-clear').addEventListener('click', () => { search.value = domain.value = category.value = ''; limit = 9; renderResults(); });
   viewport.addEventListener('pointerdown', event => {
-    dragging = true;
-    moved = false;
-    pointer = { x: event.clientX, y: event.clientY };
-    viewport.setPointerCapture(event.pointerId);
-    viewport.classList.add('dragging');
+    if (event.button !== 0 || event.target.closest('button')) return;
+    moved = false; drag = {id:event.pointerId, x:event.clientX, y:event.clientY, startX:event.clientX, startY:event.clientY};
   });
   viewport.addEventListener('pointermove', event => {
-    if (!dragging) return;
-    const ratio = 900 / viewport.clientWidth;
-    const dx = (event.clientX - pointer.x) * ratio;
-    const dy = (event.clientY - pointer.y) * ratio;
-    if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
-    x += dx;
-    y += dy;
-    pointer = { x: event.clientX, y: event.clientY };
-    renderTransform();
+    if (!drag || event.pointerId !== drag.id) return;
+    if (!moved && Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) < 5) return;
+    moved = true; viewport.setPointerCapture(event.pointerId); viewport.classList.add('dragging');
+    const rect = root.querySelector('.gis-canvas').getBoundingClientRect();
+    const ratio = Math.max(900 / rect.width, 620 / rect.height);
+    x += (event.clientX - drag.x) * ratio; y += (event.clientY - drag.y) * ratio;
+    drag.x = event.clientX; drag.y = event.clientY; renderTransform();
   });
-  const stopDrag = event => {
-    dragging = false;
-    viewport.classList.remove('dragging');
-    if (event.pointerId !== undefined && viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+  function stopDrag(event) {
+    drag = null; viewport.classList.remove('dragging');
+    if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
     setTimeout(() => { moved = false; }, 0);
-  };
+  }
   viewport.addEventListener('pointerup', stopDrag);
   viewport.addEventListener('pointercancel', stopDrag);
-  viewport.addEventListener('wheel', event => {
-    event.preventDefault();
-    zoom(event.deltaY < 0 ? 1.16 : 0.86);
-  }, { passive: false });
+  viewport.addEventListener('wheel', event => { event.preventDefault(); zoom(event.deltaY < 0 ? 1.16 : .86); }, {passive:false});
+  function close() {
+    panel.classList.remove('open'); selected = null;
+    root.querySelectorAll('.selected').forEach(node => node.classList.remove('selected'));
+    history.replaceState(null, '', '#territoires'); renderTransform(); viewport.focus({preventScroll:true});
+  }
   viewport.addEventListener('keydown', event => {
-    const step = 32;
     if (event.key === '+' || event.key === '=') zoom(1.2);
-    else if (event.key === '-') zoom(0.82);
-    else if (event.key === 'ArrowLeft') x += step;
-    else if (event.key === 'ArrowRight') x -= step;
-    else if (event.key === 'ArrowUp') y += step;
-    else if (event.key === 'ArrowDown') y -= step;
-    else if (event.key === 'Home') { scale = 1; x = 0; y = 0; }
-    else if (event.key === 'Escape') {
-      panel.classList.remove('open');
-      root.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
-      return;
-    } else return;
-    event.preventDefault();
-    renderTransform();
+    else if (event.key === '-') zoom(.82);
+    else if (event.key === 'ArrowLeft') x += 32;
+    else if (event.key === 'ArrowRight') x -= 32;
+    else if (event.key === 'ArrowUp') y += 32;
+    else if (event.key === 'ArrowDown') y -= 32;
+    else if (event.key === 'Home') { scale = 1; x = y = 0; }
+    else if (event.key === 'Escape') close();
+    else return;
+    event.preventDefault(); renderTransform();
   });
-
+  panel.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
   root.querySelectorAll('[data-map-action]').forEach(button => button.addEventListener('click', () => {
     if (button.dataset.mapAction === 'zoom-in') zoom(1.25);
-    if (button.dataset.mapAction === 'zoom-out') zoom(0.8);
-    if (button.dataset.mapAction === 'reset') {
-      scale = 1; x = 0; y = 0; renderTransform();
-    }
+    else if (button.dataset.mapAction === 'zoom-out') zoom(.8);
+    else { scale = 1; x = y = 0; renderTransform(); }
   }));
-  panel.querySelector('.panel-close').addEventListener('click', () => {
-    panel.classList.remove('open');
-    root.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
-  });
-
-  renderTransform();
+  panel.querySelector('.panel-close').addEventListener('click', close);
+  function restoreHash() {
+    const id = location.hash.replace(/^#atlas\//, '');
+    if (places[id]) { selectPlace(id, false, false); root.scrollIntoView({block:'start',behavior:'auto'}); }
+  }
+  window.addEventListener('hashchange', restoreHash);
+  browser.hidden = false; renderResults(); restoreHash();
 })();
