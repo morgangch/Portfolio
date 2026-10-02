@@ -4,7 +4,7 @@ Copier le bloc ci-dessous dans Claude Design, puis joindre :
 
 1. ce repository ou, au minimum, `docs/visual-identity.md`, `assets/monogram.svg`, `assets/favicon.svg`, `assets/social-card.svg`, `index.html` et `styles/atlas.css` ;
 2. les trois CV PDF présents dans `files/` ;
-3. la photo de profil originale en haute définition ;
+3. `assets/profile-photo.png`, photo de profil de référence validée (ne pas utiliser `files/my_pic.png`) ;
 4. uniquement les captures de projets dont la publication est autorisée.
 
 ---
@@ -19,9 +19,9 @@ Analyse avant de créer :
 
 - `docs/visual-identity.md`, source normative de la direction artistique ;
 - le portfolio et ses tokens dans `styles/atlas.css` ;
-- `assets/monogram.svg` pour la marque principale et `assets/favicon.svg` pour le repère compact ;
+- `assets/logo-mark.svg` pour la marque principale sur fond clair, `assets/monogram.svg` pour la tuile sombre et `assets/favicon.svg` pour les très petites tailles ;
 - les trois CV source : cybersécurité défensive/systèmes, DevOps/cloud/infrastructure et software engineering/backend ;
-- la photo fournie.
+- `assets/profile-photo.png`, seule photo de référence à utiliser ; ne pas utiliser `files/my_pic.png`.
 
 Ne fabrique aucune expérience, technologie, responsabilité, date, certification ou métrique. Ne transforme pas un projet personnel en expérience salariée. Ne publie aucune donnée interne à OVHcloud ou Isalyx. Les seuls chiffres mis en avant doivent être déjà présents dans les CV ou le portfolio, notamment : 183 machines physiques, 100+ endpoints, 10+ services, 5 interfaces, environ 90 joueurs actifs, 272 membres et environ 5 000 visiteurs uniques.
 
@@ -48,7 +48,7 @@ Employer avec parcimonie : graticules très pâles, coordonnées, index de feuil
 
 ### 3. Transformation de la photo
 
-À partir de la photo fournie, créer un portrait cohérent pour LinkedIn et les CV :
+À partir de `assets/profile-photo.png`, créer un portrait cohérent pour LinkedIn et les CV. Cette image remplace explicitement `files/my_pic.png` et `files/1739188182751.jpg` comme source finale :
 
 - conserver strictement l’identité, les traits du visage, l’âge apparent et la carnation ;
 - cadrage tête et épaules, regard naturel, expression accessible et professionnelle ;
