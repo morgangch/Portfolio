@@ -108,4 +108,4 @@ Le favicon n’est plus une marque distincte : il reprend directement le nouveau
 
 ## 13. Photographie de référence
 
-La photographie validée est `assets/profile-photo.png`. Elle remplace `files/my_pic.png` et `files/1739188182751.jpg` pour toutes les futures déclinaisons du portfolio, des CV et de LinkedIn. Toute retouche doit conserver l’identité, les traits, la carnation et le naturel du portrait.
+La photographie validée est `assets/profile-photo.png`. Elle sert de référence pour toutes les futures déclinaisons du portfolio, des CV et de LinkedIn. Toute retouche doit conserver l’identité, les traits, la carnation et le naturel du portrait.
